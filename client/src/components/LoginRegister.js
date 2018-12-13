@@ -15,7 +15,9 @@ class LoginRegister extends React.Component {
             usernameChecked: false,
             password: '',
             confirmPassword: '',
-            passwordChecked: false
+            passwordChecked: false,
+            modalMessage: '',
+            modalVisible: false
         };
     }
 
@@ -106,38 +108,66 @@ class LoginRegister extends React.Component {
                 username: '',
                 password: '',
                 confirmPassword: '',
-                usernameChecked: false
+                usernameChecked: false,
+                validUsername: false,
+                confirmedPassword: false,
+                canSubmit: false,
+                passwordChecked: false
             }
         });
     }
 
     // sumbit handler for register view, new username and password to db
-    registerSubmit = event => {
+    registerSubmit = async (event) => {
         event.preventDefault();
         const newUser = {
             username: this.state.username,
             password: this.state.password
         };
 
-        axios.post('https://tennis-notes.herokuapp.com/api/users/register', newUser)
-            .then(response => {
-                if (response.rowCount) {
-                    console.log('YAYAYAYAYAYAYA!');
-                } else {
-                    console.log('Error registering');
-                }
-            })
-            .catch(err => {
-                console.log('Error registering');
+        const response = await axios.post('https://tennis-notes.herokuapp.com/api/users/register', newUser);
+
+        if (response.data.rowCount) {
+            await this.setState({
+                modalMessage: 'Success!',
+                modalVisible: true
             });
+            setTimeout(async () => {
+                //await this.toggleLoginRegister();
+                await this.setState({
+                    modalMessage: '',
+                    modalVisible: false,
+                    username: '',
+                    password: '',
+                    confirmPassword: '',
+                    usernameChecked: false,
+                    validUsername: false,
+                    confirmedPassword: false,
+                    canSubmit: false,
+                    passwordChecked: false
+                })
+            }, 2500);
+        } else {
+            await this.setState({
+                modalMessage: 'Error registering, please try again.',
+                modalVisible: true
+            });
+            setTimeout(async () => {
+                await this.setState({
+                    modalMessage: '',
+                    modalVisible: false
+                })
+            }, 2500);
+        }
     }
 
     render() {
         return (
             <div className="centered-page">
+                <div className={`login-register-modal ${this.state.modalVisible ? '' : 'modal-hidden'}`}>{this.state.modalMessage}</div>
                 <div className="login-register-wrapper">
                     <img src={logo} alt="logo" className="login-register-logo" />
-                    <form autocomplete="off" onSumbit={this.state.isLogin ? null : this.registerSubmit} className={this.state.isLogin ? "login-form" : "register-form"}>
+                    <form onSubmit={this.state.isLogin ? null : this.registerSubmit} className={this.state.isLogin ? "login-form" : "register-form"}>
                         <label className={`login-register-form-label ${this.state.usernameChecked && this.state.validUsername ? 'valid' : (this.state.usernameChecked ? 'invalid' : '')}`}>
                             USERNAME
                         <input
@@ -147,6 +177,7 @@ class LoginRegister extends React.Component {
                                 onChange={this.changeHandler}
                                 placeholder="Username"
                                 value={this.state.username}
+                                autoComplete="off"
                             />
                         </label>
                         <label className="login-register-form-label">
@@ -158,6 +189,7 @@ class LoginRegister extends React.Component {
                                 onChange={this.changeHandler}
                                 placeholder="Password"
                                 value={this.state.password}
+                                autoComplete="off"
                             />
                         </label>
                         <label className={`login-register-form-label ${this.state.isLogin ? 'display-none' : ''} ${this.state.passwordChecked && this.state.confirmedPassword ? 'password-match' : (this.state.passwordChecked ? 'password-no-match' : '')}`}>
@@ -169,6 +201,7 @@ class LoginRegister extends React.Component {
                                 onChange={this.changeHandler}
                                 placeholder="Confirm Password"
                                 value={this.state.confirmPassword}
+                                autoComplete="off"
                             />
                         </label>
 
@@ -176,7 +209,7 @@ class LoginRegister extends React.Component {
                     </form>
                     <span onClick={this.toggleLoginRegister}>{this.state.isLogin ? 'REGISTER NEW USER' : 'LOGIN TO ACCOUNT'}</span>
                 </div>
-            </div >
+            </div>
         )
     }
 }
