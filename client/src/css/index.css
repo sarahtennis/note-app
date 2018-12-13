@@ -152,6 +152,9 @@ div.centered-page {
   justify-content: center;
   align-items: center;
 }
+.display-none {
+  display: none;
+}
 .login-register-wrapper {
   width: 400px;
   min-height: 550px;
@@ -197,6 +200,18 @@ div.centered-page {
   position: absolute;
   right: 0;
 }
+.login-register-wrapper .password-match::after {
+  content: "✓";
+  color: green;
+  position: absolute;
+  right: 0;
+}
+.login-register-wrapper .password-no-match::after {
+  content: "✕";
+  color: red;
+  position: absolute;
+  right: 0;
+}
 .login-register-wrapper .login-form,
 .login-register-wrapper .register-form {
   width: 100%;
@@ -206,11 +221,6 @@ div.centered-page {
   justify-content: center;
   align-items: center;
   margin: 0 20px;
-}
-.login-register-wrapper .login-form .confirm-wrapper,
-.login-register-wrapper .register-form .confirm-wrapper {
-  margin-top: 10px;
-  width: 100%;
 }
 .login-register-wrapper .login-form .username-input,
 .login-register-wrapper .register-form .username-input,

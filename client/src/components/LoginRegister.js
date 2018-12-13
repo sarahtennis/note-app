@@ -14,7 +14,8 @@ class LoginRegister extends React.Component {
             username: '',
             usernameChecked: false,
             password: '',
-            confirmPassword: ''
+            confirmPassword: '',
+            passwordChecked: false
         };
     }
 
@@ -29,18 +30,42 @@ class LoginRegister extends React.Component {
 
     // checks to see if username is already in database, returns true if available for new account
     availableUsername = async (username) => {
-        if(username === '') {
-            this.setState({ usernameChecked: false});
+        if (username === '') {
+            this.setState({ usernameChecked: false });
             return;
         }
         try {
             const valid = await axios.post('https://tennis-notes.herokuapp.com/api/users/availableUsername', { username: username });
-            if(!this.state.usernameChecked) {
+            if (!this.state.usernameChecked) {
                 this.setState({ usernameChecked: true });
             }
             return valid.data;
         } catch (err) {
             console.log(err);
+        }
+    }
+
+    matchingPasswords = async () => {
+        if (this.state.password !== '' || this.state.confirmPassword !== '') {
+            if (!this.state.passwordChecked) {
+                await this.setState({ passwordChecked: true });
+            }
+        } else {
+            if (this.state.passwordChecked) {
+                await this.setState({ passwordChecked: false });
+            }
+        }
+
+        if (this.state.passwordChecked) {
+            if (this.state.password === this.state.confirmPassword) {
+                if (!this.state.confirmedPassword) {
+                    await this.setState({ confirmedPassword: true });
+                }
+            } else {
+                if (this.state.confirmedPassword) {
+                    await this.setState({ confirmedPassword: false });
+                }
+            }
         }
     }
 
@@ -52,25 +77,14 @@ class LoginRegister extends React.Component {
                     await this.setState({ validUsername: true });
                 }
             } else {
-                console.log(this.state.validUsername);
                 if (this.state.validUsername) {
                     await this.setState({ validUsername: false });
                 }
-                console.log(this.state.validUsername);
             }
         };
 
         if (event.target.name === 'password' || event.target.name === 'confirmPassword') {
-            if (this.state.password === this.state.confirmPassword) {
-                if (!this.state.confirmedPassword) {
-                    await this.setState({ confirmedPassword: true });
-                }
-                alert('same password');
-            } else {
-                if (!this.state.confirmedPassword) {
-                    await this.setState({ confirmedPassword: false });
-                }
-            }
+            this.matchingPasswords();
         };
 
         if (this.state.confirmedPassword && this.state.validUsername && this.state.username) {
@@ -124,7 +138,7 @@ class LoginRegister extends React.Component {
                 <div className="login-register-wrapper">
                     <img src={logo} alt="logo" className="login-register-logo" />
                     <form autocomplete="off" onSumbit={this.state.isLogin ? null : this.registerSubmit} className={this.state.isLogin ? "login-form" : "register-form"}>
-                        <label className={`login-register-form-label ${this.state.usernameChecked && this.state.validUsername ? 'valid' : (this.state.usernameChecked ? 'invalid' : null)}`} for="username">USERNAME</label>
+                        <label className={`login-register-form-label ${this.state.usernameChecked && this.state.validUsername ? 'valid' : (this.state.usernameChecked ? 'invalid' : '')}`} for="username">USERNAME</label>
                         <input
                             type="text"
                             name="username"
@@ -142,24 +156,21 @@ class LoginRegister extends React.Component {
                             placeholder="Password"
                             value={this.state.password}
                         />
-                        {this.state.isLogin ? null :
-                            <div className="confirm-wrapper">
-                                <label className="login-register-form-label" for="confirmPassword">CONFIRM PASSWORD</label>
-                                <input
-                                    type="password"
-                                    name="confirmPassword"
-                                    className="password-input"
-                                    onChange={this.changeHandler}
-                                    placeholder="Confirm Password"
-                                    value={this.state.confirmPassword}
-                                />
-                            </div>
-                        }
+                        <label className={`login-register-form-label ${this.state.isLogin ? 'display-none' : ''} ${this.state.passwordChecked && this.state.confirmedPassword ? 'password-match' : (this.state.passwordChecked ? 'password-no-match' : '')}`} for="confirmPassword">CONFIRM PASSWORD</label>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            className={`password-input ${this.state.isLogin ? 'display-none' : ''}`}
+                            onChange={this.changeHandler}
+                            placeholder="Confirm Password"
+                            value={this.state.confirmPassword}
+                        />
+
                         <button type="button" onClick={this.state.isLogin ? null : this.registerSubmit} className={this.state.isLogin ? "login-button" : (this.state.canSubmit ? "register-button" : "register-button-disabled")} disabled={this.state.isLogin ? false : (this.state.canSubmit ? false : true)}>{this.state.isLogin ? 'Login' : 'Register'}</button>
                     </form>
                     <span onClick={this.toggleLoginRegister}>{this.state.isLogin ? 'REGISTER NEW USER' : 'LOGIN TO ACCOUNT'}</span>
                 </div>
-            </div>
+            </div >
         )
     }
 }
