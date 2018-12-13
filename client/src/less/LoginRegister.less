@@ -40,6 +40,7 @@
         color: green;
         position: absolute;
         right: 0;
+        top: 0;
     }
 
     .invalid::after {
@@ -47,6 +48,7 @@
         color: red;
         position: absolute;
         right: 0;
+        top: 0;
     }
 
     .password-match::after {
@@ -54,6 +56,7 @@
         color: green;
         position: absolute;
         right: 0;
+        top: 0;
     }
 
     .password-no-match::after {
@@ -61,6 +64,7 @@
         color: red;
         position: absolute;
         right: 0;
+        top: 0;
     }
 
     .login-form, .register-form {
@@ -78,6 +82,7 @@
             margin: 5px 0;
             border-radius: 5px;
             position: relative;
+            outline-color: #ffb5e3;
         }
 
         .username-input, .password-input {
@@ -89,8 +94,8 @@
             margin: 10px 0;
         }
 
-        .login-button {
-            background: #4d243d;
+        .login-button, .register-button {
+            background: #e374b8;
             color: #ffffff;
             font-size: 1.8rem;
             transition: all 0.5s ease;
@@ -98,31 +103,17 @@
             &:hover {
                 transition: all 0.5s ease;
                 background: #ffffff;
-                color: #4d243d;
-                border: 1px solid #4d243d;
-                cursor: pointer;
-            }
-        }
-
-        .register-button {
-            background: #b05b90;
-            color: #ffffff;
-            font-size: 1.8rem;
-            transition: all 0.5s ease;
-
-            &:hover {
-                transition: all 0.5s ease;
-                background: #ffffff;
-                color: #b05b90;
-                border: 1px solid #b05b90;
+                color: #e374b8;
+                border: 1px solid #e374b8;
                 cursor: pointer;
             }
         }
 
         .register-button-disabled {
-            background: #6d495f;
-            color: #999999;
+            background: #978992;
+            color: #d6d6d6;
             font-size: 1.8rem;
+            transition: all 0.5s ease;
         }
     }
 }

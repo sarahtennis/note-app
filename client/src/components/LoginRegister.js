@@ -138,33 +138,39 @@ class LoginRegister extends React.Component {
                 <div className="login-register-wrapper">
                     <img src={logo} alt="logo" className="login-register-logo" />
                     <form autocomplete="off" onSumbit={this.state.isLogin ? null : this.registerSubmit} className={this.state.isLogin ? "login-form" : "register-form"}>
-                        <label className={`login-register-form-label ${this.state.usernameChecked && this.state.validUsername ? 'valid' : (this.state.usernameChecked ? 'invalid' : '')}`} for="username">USERNAME</label>
+                        <label className={`login-register-form-label ${this.state.usernameChecked && this.state.validUsername ? 'valid' : (this.state.usernameChecked ? 'invalid' : '')}`}>
+                            USERNAME
                         <input
-                            type="text"
-                            name="username"
-                            className="username-input"
-                            onChange={this.changeHandler}
-                            placeholder="Username"
-                            value={this.state.username}
-                        />
-                        <label className="login-register-form-label" for="password">PASSWORD</label>
+                                type="text"
+                                name="username"
+                                className="username-input"
+                                onChange={this.changeHandler}
+                                placeholder="Username"
+                                value={this.state.username}
+                            />
+                        </label>
+                        <label className="login-register-form-label">
+                            PASSWORD
                         <input
-                            type="password"
-                            name="password"
-                            className="password-input"
-                            onChange={this.changeHandler}
-                            placeholder="Password"
-                            value={this.state.password}
-                        />
-                        <label className={`login-register-form-label ${this.state.isLogin ? 'display-none' : ''} ${this.state.passwordChecked && this.state.confirmedPassword ? 'password-match' : (this.state.passwordChecked ? 'password-no-match' : '')}`} for="confirmPassword">CONFIRM PASSWORD</label>
+                                type="password"
+                                name="password"
+                                className="password-input"
+                                onChange={this.changeHandler}
+                                placeholder="Password"
+                                value={this.state.password}
+                            />
+                        </label>
+                        <label className={`login-register-form-label ${this.state.isLogin ? 'display-none' : ''} ${this.state.passwordChecked && this.state.confirmedPassword ? 'password-match' : (this.state.passwordChecked ? 'password-no-match' : '')}`}>
+                            CONFIRM PASSWORD
                         <input
-                            type="password"
-                            name="confirmPassword"
-                            className={`password-input ${this.state.isLogin ? 'display-none' : ''}`}
-                            onChange={this.changeHandler}
-                            placeholder="Confirm Password"
-                            value={this.state.confirmPassword}
-                        />
+                                type="password"
+                                name="confirmPassword"
+                                className={`password-input ${this.state.isLogin ? 'display-none' : ''}`}
+                                onChange={this.changeHandler}
+                                placeholder="Confirm Password"
+                                value={this.state.confirmPassword}
+                            />
+                        </label>
 
                         <button type="button" onClick={this.state.isLogin ? null : this.registerSubmit} className={this.state.isLogin ? "login-button" : (this.state.canSubmit ? "register-button" : "register-button-disabled")} disabled={this.state.isLogin ? false : (this.state.canSubmit ? false : true)}>{this.state.isLogin ? 'Login' : 'Register'}</button>
                     </form>
