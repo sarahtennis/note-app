@@ -28,7 +28,7 @@ class LoginRegister extends React.Component {
     availableUsername = async (username) => {
         try {
             const valid = await axios.post('https://tennis-notes.herokuapp.com/api/users/availableUsername', { username: username });
-            return valid;
+            return valid.data;
         } catch (err) {
             console.log(err);
         }
@@ -37,15 +37,16 @@ class LoginRegister extends React.Component {
     // if on register view, checks to see if input is acceptable
     validateRegister = async (event) => {
         if (event.target.name === 'username') {
-            if (this.availableUsername(event.target.value)) {
+            if (await this.availableUsername(event.target.value)) {
                 if (!this.state.validUsername) {
                     await this.setState({ validUsername: true });
                 }
             } else {
+                console.log(this.state.validUsername);
                 if (this.state.validUsername) {
                     await this.setState({ validUsername: false });
                 }
-                alert('bad username!');
+                console.log(this.state.validUsername);
             }
         };
 
@@ -62,7 +63,7 @@ class LoginRegister extends React.Component {
             }
         };
 
-        if (this.state.confirmedPassword && this.state.validUsername) {
+        if (this.state.confirmedPassword && this.state.validUsername && this.state.username) {
             if (!this.state.canSubmit) {
                 await this.setState({ canSubmit: true });
             }
@@ -84,10 +85,31 @@ class LoginRegister extends React.Component {
             }});
     }
 
+    // sumbit handler for register view, new username and password to db
+    registerSubmit = event => {
+        event.preventDefault();
+        const newUser = {
+            username: this.state.username,
+            password: this.state.password
+        };
+
+        axios.post('https://tennis-notes.herokuapp.com/api/users/register', newUser)
+            .then(response => {
+                if(response.rowCount){
+                    console.log('YAYAYAYAYAYAYA!');
+                } else {
+                    console.log('Error registering');
+                }
+            })
+            .catch(err => {
+                console.log('Error registering');
+            });
+    }
+
     render() {
         return (
             <div className="login-register-wrapper">
-                <form className={this.state.isLogin ? "login-form" : "register-form"}>
+                <form onSumbit={this.state.isLogin ? null : this.registerSubmit} className={this.state.isLogin ? "login-form" : "register-form"}>
                     <input
                         type="text"
                         name="username"
@@ -113,7 +135,7 @@ class LoginRegister extends React.Component {
                         value={this.state.confirmPassword}
                     />
                     }
-                    <button type="submit" className={this.state.isLogin ? "login-button" : "register-button"} disabled={this.state.isLogin ? false : (this.state.canSubmit ? false : true)}>Submit</button>
+                    <button type="button" onClick={this.state.isLogin ? null : this.registerSubmit} className={this.state.isLogin ? "login-button" : "register-button"} disabled={this.state.isLogin ? false : (this.state.canSubmit ? false : true)}>Submit</button>
                 </form>
                 <span onClick={this.toggleLoginRegister}>Toggle!</span>
             </div >
