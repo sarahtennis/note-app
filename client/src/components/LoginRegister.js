@@ -27,6 +27,16 @@ class LoginRegister extends React.Component {
         await this.setState({ [event.target.name]: event.target.value });
         if (!this.state.isLogin) {
             this.validateRegister(event);
+        } else {
+            if (this.state.username && this.state.password){
+                if (!this.state.canSubmit) {
+                    await this.setState({ canSubmit: true });
+                }
+            } else {
+                if (this.state.canSubmit) {
+                    await this.setState({ canSubmit: false });
+                }
+            }
         }
     }
 
@@ -35,15 +45,16 @@ class LoginRegister extends React.Component {
         if (username === '') {
             this.setState({ usernameChecked: false });
             return;
-        }
-        try {
-            const valid = await axios.post('https://tennis-notes.herokuapp.com/api/users/availableUsername', { username: username });
-            if (!this.state.usernameChecked) {
-                this.setState({ usernameChecked: true });
+        } else {
+            try {
+                const valid = await axios.post('https://tennis-notes.herokuapp.com/api/users/availableUsername', { username: username });
+                if (!this.state.usernameChecked) {
+                    this.setState({ usernameChecked: true });
+                }
+                return valid.data;
+            } catch (err) {
+                console.log(err);
             }
-            return valid.data;
-        } catch (err) {
-            console.log(err);
         }
     }
 
@@ -205,7 +216,7 @@ class LoginRegister extends React.Component {
                             />
                         </label>
 
-                        <button type="button" onClick={this.state.isLogin ? null : this.registerSubmit} className={this.state.isLogin ? "login-button" : (this.state.canSubmit ? "register-button" : "register-button-disabled")} disabled={this.state.isLogin ? false : (this.state.canSubmit ? false : true)}>{this.state.isLogin ? 'Login' : 'Register'}</button>
+                        <button type="button" onClick={this.state.isLogin ? null : this.registerSubmit} className={this.state.isLogin ? (this.state.canSubmit ? "login-button" : "login-button-disabled") : (this.state.canSubmit ? "register-button" : "register-button-disabled")} disabled={this.state.isLogin ? false : (this.state.canSubmit ? false : true)}>{this.state.isLogin ? 'Login' : 'Register'}</button>
                     </form>
                     <span onClick={this.toggleLoginRegister}>{this.state.isLogin ? 'REGISTER NEW USER' : 'LOGIN TO ACCOUNT'}</span>
                 </div>

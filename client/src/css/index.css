@@ -257,7 +257,9 @@ div.centered-page {
 .login-register-wrapper .login-form .login-button,
 .login-register-wrapper .register-form .login-button,
 .login-register-wrapper .login-form .register-button-disabled,
-.login-register-wrapper .register-form .register-button-disabled {
+.login-register-wrapper .register-form .register-button-disabled,
+.login-register-wrapper .login-form .login-button-disabled,
+.login-register-wrapper .register-form .login-button-disabled {
   width: 100%;
   padding: 15px;
   margin: 5px 0;
@@ -276,7 +278,9 @@ div.centered-page {
 .login-register-wrapper .login-form .register-button,
 .login-register-wrapper .register-form .register-button,
 .login-register-wrapper .login-form .register-button-disabled,
-.login-register-wrapper .register-form .register-button-disabled {
+.login-register-wrapper .register-form .register-button-disabled,
+.login-register-wrapper .login-form .login-button-disabled,
+.login-register-wrapper .register-form .login-button-disabled {
   margin: 10px 0;
 }
 .login-register-wrapper .login-form .login-button,
@@ -299,7 +303,9 @@ div.centered-page {
   cursor: pointer;
 }
 .login-register-wrapper .login-form .register-button-disabled,
-.login-register-wrapper .register-form .register-button-disabled {
+.login-register-wrapper .register-form .register-button-disabled,
+.login-register-wrapper .login-form .login-button-disabled,
+.login-register-wrapper .register-form .login-button-disabled {
   background: #978992;
   color: #d6d6d6;
   font-size: 1.8rem;
