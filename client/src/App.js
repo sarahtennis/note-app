@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 
-import { Route } from 'react-router';
+//import { Route } from 'react-router';
 
-import LoginRegister from './components/LoginRegister';
+import Authenticate from './components/Authenticate.js';
+//import LoginRegister from './components/LoginRegister';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route exact path="/" component={ LoginRegister } />
+        Test content
       </div>
     );
   }
 }
 
-export default App;
+export default Authenticate(App);
