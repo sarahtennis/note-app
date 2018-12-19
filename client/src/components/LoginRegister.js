@@ -17,7 +17,8 @@ class LoginRegister extends React.Component {
             confirmPassword: '',
             passwordChecked: false,
             modalMessage: '',
-            modalVisible: false
+            modalVisible: false,
+            pendingValidation: false
         };
     }
 
@@ -28,7 +29,7 @@ class LoginRegister extends React.Component {
         if (!this.state.isLogin) {
             this.validateRegister(event);
         } else {
-            if (this.state.username && this.state.password){
+            if (this.state.username && this.state.password) {
                 if (!this.state.canSubmit) {
                     await this.setState({ canSubmit: true });
                 }
@@ -47,10 +48,12 @@ class LoginRegister extends React.Component {
             return;
         } else {
             try {
+                await this.setState({ pendingValidation: true });
                 const valid = await axios.post('https://tennis-notes.herokuapp.com/api/users/availableUsername', { username: username });
                 if (!this.state.usernameChecked) {
                     this.setState({ usernameChecked: true });
                 }
+                await this.setState({ pendingValidation: false });
                 return valid.data;
             } catch (err) {
                 console.log(err);
@@ -179,7 +182,7 @@ class LoginRegister extends React.Component {
                 <div className="login-register-wrapper">
                     <img src={logo} alt="logo" className="login-register-logo" />
                     <form onSubmit={this.state.isLogin ? null : this.registerSubmit} className={this.state.isLogin ? "login-form" : "register-form"}>
-                        <label className={`login-register-form-label ${this.state.usernameChecked && this.state.validUsername ? 'valid' : (this.state.usernameChecked ? 'invalid' : '')}`}>
+                        <label className={`login-register-form-label ${this.state.usernameChecked ? (this.state.validUsername ? 'valid' : 'invalid') : (this.state.pendingValidation ? 'pending' : '')}`}>
                             USERNAME
                         <input
                                 type="text"

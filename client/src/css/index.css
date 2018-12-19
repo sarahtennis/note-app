@@ -155,6 +155,14 @@ div.centered-page {
 .display-none {
   display: none;
 }
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .login-register-modal {
   width: 100%;
   height: 100%;
@@ -219,6 +227,20 @@ div.centered-page {
   content: "UNAVAILABLE";
   color: red;
   position: absolute;
+  right: 0;
+  top: 0;
+}
+.login-register-wrapper .pending::after {
+  content: "";
+  position: absolute;
+  border: 5px solid #f3f3f3;
+  /* Light grey */
+  border-top: 5px solid #4d243d;
+  /* Blue */
+  border-radius: 50%;
+  width: 6px;
+  height: 6px;
+  animation: spin 2s linear infinite;
   right: 0;
   top: 0;
 }
