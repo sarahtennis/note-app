@@ -163,6 +163,11 @@ div.centered-page {
     transform: rotate(360deg);
   }
 }
+h3 {
+  font-size: 3.6rem;
+  color: #4d243d;
+  margin-bottom: 20px;
+}
 .login-register-modal {
   width: 100%;
   height: 100%;
@@ -332,4 +337,82 @@ div.centered-page {
   color: #d6d6d6;
   font-size: 1.8rem;
   transition: all 0.5s ease;
+}
+div.side-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 130px;
+  background: #4d243d;
+}
+div.side-nav ul li {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  padding: 10px;
+  font-size: 1.6rem;
+  transition: all 0.3s ease;
+}
+div.side-nav ul li:hover {
+  background: #2a1421;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+div.side-nav ul li img {
+  margin-right: 5px;
+}
+div.side-nav ul li a {
+  color: #ffffff;
+  text-decoration: none;
+}
+div.note-list {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 130px;
+  height: 100vh;
+  width: 300px;
+  background: #ffffff;
+  border-right: 1px solid #999999;
+}
+div.note-list div.no-notes {
+  font-size: 1.6rem;
+  color: #999999;
+  padding: 20px 0;
+}
+div.create-note {
+  position: fixed;
+  top: 0;
+  left: 430px;
+  height: 100vh;
+  padding: 20px;
+}
+div.create-note form.create-note-form {
+  width: 100%;
+  border: 1px solid blue;
+}
+div.create-note form.create-note-form label {
+  display: block;
+  font-size: 1.8rem;
+  color: #4d243d;
+  margin-bottom: 10px;
+}
+div.create-note form.create-note-form input {
+  display: block;
+  width: 500px;
+  margin-bottom: 20px;
+}
+div.create-note form.create-note-form textarea {
+  display: block;
+  width: 500px;
+  min-width: 500px;
+  min-height: 200px;
+  margin-bottom: 20px;
+}
+div.create-note form.create-note-form button {
+  margin: 0 auto;
 }

@@ -208,6 +208,13 @@ class LoginRegister extends React.Component {
     }
 
     render() {
+        if (!this.state.username && this.state.validUsername) {
+            this.setState({
+                usernameChecked: false,
+                validUsername: false
+            })
+        }
+
         return (
             <div className="centered-page">
                 <div className={`login-register-modal ${this.state.modalVisible ? '' : 'modal-hidden'}`}>{this.state.modalMessage}</div>
