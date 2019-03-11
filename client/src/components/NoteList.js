@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import NoteListCard from './NoteListCard';
 
@@ -34,9 +35,10 @@ class NoteList extends React.Component {
   render() {
     return (
       <div className="note-list">
+        <div className="note-list-header"><span className="all-notes-header">All Notes</span><span className="all-notes-count">{this.state.notes.length} note(s)</span></div>
         {this.state.notes.length ?
-          this.state.notes.forEach(note => {
-            return <NoteListCard />
+          this.state.notes.map(note => {
+            return <NoteListCard key={note.id} note={note} />
           }) : <div className="no-notes">No Notes in Database </div>}
       </div>
     )

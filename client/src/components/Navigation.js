@@ -10,8 +10,8 @@ class Navigation extends React.Component {
         return (
             <div className="side-nav">
                 <ul>
-                    <li><img src={note} alt="note icon" />Notes</li>
-                    <li><Link to="create-note"><img src={pencil} alt="pencil icon" />Create Note</Link></li>
+                    <li><Link to=""><img src={note} alt="note icon" />Notes</Link></li>
+                    <li><Link to="/create-note"><img src={pencil} alt="pencil icon" />Create Note</Link></li>
                 </ul>
             </div>
         )

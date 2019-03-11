@@ -369,9 +369,6 @@ div.side-nav ul li a {
 }
 div.note-list {
   position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   top: 0;
   left: 130px;
   height: 100vh;
@@ -379,10 +376,54 @@ div.note-list {
   background: #ffffff;
   border-right: 1px solid #999999;
 }
+div.note-list div.note-list-header {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100px;
+  background: #7A3B62;
+  padding: 10px;
+  color: #fff;
+}
+div.note-list div.note-list-header span.all-notes-header {
+  width: 100%;
+  font-size: 2.4rem;
+}
+div.note-list div.note-list-header span.all-notes-count {
+  width: 100%;
+  font-size: 1.6rem;
+  align-self: flex-end;
+  text-align: end;
+}
 div.note-list div.no-notes {
   font-size: 1.6rem;
   color: #999999;
   padding: 20px 0;
+}
+div.note-list a {
+  text-decoration: none;
+}
+div.note-list a div.note-list-card {
+  width: 100%;
+  height: 100px;
+  border-bottom: 1px solid #999999;
+  padding: 10px;
+  transition: all 0.3s ease;
+  color: #000;
+}
+div.note-list a div.note-list-card:hover {
+  cursor: pointer;
+  background: #f3f3f3;
+  transition: all 0.3s ease;
+}
+div.note-list a div.note-list-card span {
+  font-weight: 900;
+  font-size: 1.8rem;
+}
+div.note-list a div.note-list-card p {
+  font-size: 1.6rem;
+  margin: 10px 0 0;
 }
 div.create-note {
   position: fixed;
@@ -393,7 +434,6 @@ div.create-note {
 }
 div.create-note form.create-note-form {
   width: 100%;
-  border: 1px solid blue;
 }
 div.create-note form.create-note-form label {
   display: block;
@@ -405,6 +445,9 @@ div.create-note form.create-note-form input {
   display: block;
   width: 500px;
   margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #4d243d;
+  border-radius: 5px;
 }
 div.create-note form.create-note-form textarea {
   display: block;
@@ -412,7 +455,16 @@ div.create-note form.create-note-form textarea {
   min-width: 500px;
   min-height: 200px;
   margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #4d243d;
+  border-radius: 5px;
 }
 div.create-note form.create-note-form button {
   margin: 0 auto;
+}
+div.note-view {
+  position: fixed;
+  top: 0;
+  left: 430px;
+  padding: 20px;
 }

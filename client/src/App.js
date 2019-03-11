@@ -6,6 +6,8 @@ import Authenticate from './components/Authenticate.js';
 import Navigation from './components/Navigation.js';
 import NoteList from './components/NoteList.js';
 import CreateNote from './components/CreateNote.js';
+import NoteView from './components/NoteView.js';
+
 
 class App extends Component {
   render() {
@@ -13,7 +15,8 @@ class App extends Component {
       <div className="App">
         <Navigation />
         <NoteList />
-        <Route path='/create-note' component={CreateNote} />
+        <Route exact path='/create-note' component={CreateNote} />
+        <Route path='/notes/:id' render={(props) => <NoteView {...props} />} />
       </div>
     );
   }
